@@ -36,10 +36,11 @@ RUN cd /home/$NB_USER/jumanpp-1.01 && make install && \
 EXPOSE 8888
 
 RUN mkdir /etc/jupyter/ && fix-permissions /etc/jupyter/
-COPY start-jupyter-notebook.sh /etc/jupyter/
 COPY jupyter_notebook_config.py /etc/jupyter/
-RUN chmod 744 /etc/jupyter/start-jupyter-notebook.sh && \
-    chmod 777 -R /home/jovyan/.jupyter/
+RUN chmod 777 -R /home/jovyan/.jupyter/
 
 
 USER $NB_USER
+
+WORKDIR /home/jovyan
+CMD /opt/conda/bin/jupyter notebook
